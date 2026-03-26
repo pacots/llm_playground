@@ -1,13 +1,22 @@
 import asyncio
-from agents import Agent, Runner
+from agents import Agent, Runner, function_tool
+
+@function_tool
+def history_fun_fact() -> str:
+    """Return a short history fact."""
+    return "Sharks are older than trees."
 
 agent = Agent(
     name = "History Tutor",
-    instructions = "You answer history questions clearly and concisely.",
+    instructions = "You answer history questions clearly and concisely. Use history_fun_fact when it helps.",
+    tools = [history_fun_fact]
 )
 
 async def main():
-    result = await Runner.run(agent, "When did the Roman Empire fall?")
+    result = await Runner.run(
+        agent, 
+        "Tell me something surprising about ancient life on Earth."
+    )
     print(result.final_output)
 
 if __name__ == "__main__":
