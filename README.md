@@ -22,7 +22,7 @@ For installing agents SDK:
 
 ## First-agent Folder
 
-Following quickstar from OpenAI Agents SDK: <https://openai.github.io/openai-agents-python/quickstart/>
+Following quickstart from OpenAI Agents SDK: <https://openai.github.io/openai-agents-python/quickstart/>
 
 ## Chatbot-base Folder
 
