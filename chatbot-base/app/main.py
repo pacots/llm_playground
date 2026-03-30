@@ -1,9 +1,11 @@
 import os
+import uuid
 from dotenv import load_dotenv
 from agents import Runner, SQLiteSession
 from agent import chatbot_agent
 
-SESSION_ID = "chatbot_base_session"
+def build_session():
+    return SQLiteSession(f"chatbot_base_{uuid.uuid4().hex}")
 
 def main():
     load_dotenv()
@@ -12,7 +14,7 @@ def main():
         raise ValueError("OPENAI_API_KEY is missing. Check your .env file.")
     
     # Create a session instance with a session ID
-    session = SQLiteSession(SESSION_ID)
+    session = build_session()
 
 
     print("Chatbot started. Type 'exit' to quit.\n")
