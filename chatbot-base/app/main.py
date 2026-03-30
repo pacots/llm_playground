@@ -1,42 +1,48 @@
 import os
-import uuid
+
 from dotenv import load_dotenv
+from fastapi import FastAPI, HTTPException
 from agents import Runner, SQLiteSession
-from agent import chatbot_agent
 
-def build_session():
-    return SQLiteSession(f"chatbot_base_{uuid.uuid4().hex}")
+from app.agent import chatbot_agent
+from app.schemas import ChatRequest, ChatResponse
 
-def main():
-    load_dotenv()
+load_dotenv()
 
-    if not os.getenv("OPENAI_API_KEY"):
-        raise ValueError("OPENAI_API_KEY is missing. Check your .env file.")
-    
-    # Create a session instance with a session ID
-    session = build_session()
+if not os.getenv("OPENAI_API_KEY"):
+    raise ValueError("OPENAI_API_KEY is missing. Check your .env file.")
+
+app = FastAPI(title="Chatbot Base API")
+
+# Simple in-memory cache of session objects by session_id
+sessions: dict[str, SQLiteSession] = {}
 
 
-    print("Chatbot started. Type 'exit' to quit.\n")
+def get_or_create_session(session_id: str) -> SQLiteSession:
+    if session_id not in sessions:
+        sessions[session_id] = SQLiteSession(session_id)
+    return sessions[session_id]
 
-    while True:
-        user_input = input("You: ").strip()
 
-        if user_input.lower() in {"exit", "quit"}:
-            print("Goodbye.")
-            break
+@app.get("/")
+async def root():
+    return {"status": "ok", "message": "Chatbot API is running"}
 
-        if not user_input:
-            continue
 
-        result = Runner.run_sync(
+@app.post("/chat", response_model=ChatResponse)
+async def chat(request: ChatRequest):
+    try:
+        session = get_or_create_session(request.session_id)
+
+        result = await Runner.run(
             starting_agent=chatbot_agent,
-            input=user_input,
+            input=request.message,
             session=session,
         )
-        answer = result.final_output
 
-        print(f"\nAssistant: {answer}\n")
-
-if __name__ == "__main__":
-    main()
+        return ChatResponse(
+            answer=result.final_output,
+            session_id=request.session_id,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
