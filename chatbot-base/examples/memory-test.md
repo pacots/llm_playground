@@ -1,24 +1,20 @@
 Chatbot started. Type 'exit' to quit.
 
-You: My name is Sara and I'm learning RAG
+You: I like Monet but I don't like Picasso
 
-Assistant: That's great, Sara! Retrieval-Augmented Generation (RAG) is an exciting and important area in modern artificial intelligence. It combines retrieval (finding relevant information from a database or set of documents) with generation (creating new text, often via large language models like GPT).
+Assistant: That’s a common preference! Claude Monet and Pablo Picasso represent very different styles and periods in art.
 
-If you have any specific questions about RAG, want resources to learn more, or need help with examples, just let me know how I can help!
+**Monet** is known for Impressionism—a style focusing on capturing light, atmosphere, and the feeling of a moment, often with soft colors and brushstrokes. His paintings, like those of water lilies or gardens, are generally considered calming and beautiful.
 
-You: what am I learning?
+**Picasso**, on the other hand, was a pioneer of Cubism and experimented with many styles. His work can be more abstract, with bold shapes, distorted forms, and sometimes intense or unsettling imagery.
 
-Assistant: You are learning about **Retrieval-Augmented Generation (RAG)**. Here’s a quick summary of what that means:
+If you like Monet, you might also enjoy other Impressionists like Pierre-Auguste Renoir, Camille Pissarro, or Edgar Degas. If you want to discuss what you don’t like about Picasso, I can recommend artists you might prefer!
 
-**RAG** is a technique in artificial intelligence where a model combines two key abilities:
-1. **Retrieval:** Finding relevant information or documents from a large collection or database.
-2. **Generation:** Using a language model (like GPT) to generate answers or text, guided by the retrieved information.
+You: Do I like Picasso?
 
-**Why is RAG important?**
-- It helps AI systems give more accurate and up-to-date answers, especially when the information isn’t all in their training data.
-- It’s used in applications like advanced chatbots, document search, and question answering.
+Assistant: Based on what you said—“I like Monet but I don’t like Picasso”—it seems you do **not** like Picasso’s art. You seem to prefer the Impressionist style and perhaps don’t enjoy the abstract or more experimental nature of Picasso’s work.
 
-**If you want more details on how RAG works, or example use cases, feel free to ask!**
+If you’d like to explain what you don’t like about Picasso, I can help you find other artists whose style you might appreciate!
 
 You: exit
 Goodbye.

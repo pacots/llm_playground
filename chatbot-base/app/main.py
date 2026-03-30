@@ -1,15 +1,19 @@
 import os
 from dotenv import load_dotenv
-from agents import Runner
+from agents import Runner, SQLiteSession
 from agent import chatbot_agent
+
+SESSION_ID = "chatbot_base_session"
 
 def main():
     load_dotenv()
 
     if not os.getenv("OPENAI_API_KEY"):
         raise ValueError("OPENAI_API_KEY is missing. Check your .env file.")
+    
+    # Create a session instance with a session ID
+    session = SQLiteSession(SESSION_ID)
 
-    history = []
 
     print("Chatbot started. Type 'exit' to quit.\n")
 
@@ -23,14 +27,14 @@ def main():
         if not user_input:
             continue
 
-        history.append({"role": "user", "content": user_input})
-
-        result = Runner.run_sync(chatbot_agent, history)
+        result = Runner.run_sync(
+            starting_agent=chatbot_agent,
+            input=user_input,
+            session=session,
+        )
         answer = result.final_output
 
         print(f"\nAssistant: {answer}\n")
-
-        history.append({"role": "assistant", "content": answer})
 
 if __name__ == "__main__":
     main()
