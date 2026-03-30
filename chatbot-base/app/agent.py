@@ -1,4 +1,5 @@
 from agents import Agent
+from tools import get_current_time
 
 chatbot_agent = Agent(
     name="ChatbotBase",
@@ -8,4 +9,5 @@ chatbot_agent = Agent(
         "If you do not know something, say so clearly. "
         "Do not invent facts."
     ),
+    tools=[get_current_time],
 )
